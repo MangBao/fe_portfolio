@@ -1,0 +1,17 @@
+// src/layouts/UserLayout.tsx
+import React from "react";
+import Navbar from "../components/Navbar";
+import { Outlet } from "react-router-dom";
+
+const UserLayout: React.FC = () => {
+  return (
+    <>
+      <Navbar />
+      <main className="pt-16 px-4 min-h-[calc(100vh-4rem)]">
+        <Outlet />
+      </main>
+    </>
+  );
+};
+
+export default UserLayout;
