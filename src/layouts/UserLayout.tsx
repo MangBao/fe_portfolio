@@ -7,7 +7,7 @@ const UserLayout: React.FC = () => {
   return (
     <>
       <Navbar />
-      <main className="pt-16 px-4 min-h-[calc(100vh-4rem)]">
+      <main className="pt-16 min-h-[calc(100vh-4rem)]">
         <Outlet />
       </main>
     </>
