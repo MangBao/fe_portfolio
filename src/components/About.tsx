@@ -4,53 +4,43 @@ import spareAvt from "../assets/square-avt.png";
 
 const About: React.FC = () => {
   return (
-    <section className="section" id="about">
+    <section>
       <div className="title">
         <span className="text-primary-02 uppercase">Introduction</span>
-        <h2 className="text-title-sm md:text-title-lg tracking-title">
-          {["A", "B", "O", "U", "T", " ", "M", "E"].map((char, index) => (
-            <span key={index} className="bounce inline-block">
+        <h2 className="text-title-sm md:text-title-lg tracking-title flex gap-2">
+          {["A", "B", "O", "U", "T", "\u00A0", "M", "E"].map((char, index) => (
+            <span key={index} className="bounce">
               {char}
             </span>
           ))}
         </h2>
       </div>
-      <div className="about-content flex flex-col-reverse md:flex-row mt-10">
+      <div className="about-content flex flex-col-reverse md:flex-row">
         <div className="about-content-text w-full self-center text-white">
           <p className="content-text-title text-primary-02">
-            Hello there, I'm so happy you are here!{" "}
-            {/* <FaClover className="inline animate-spin" /> */}
+            Hi, I’m Mang Bao — a passionate Frontend Developer with over 3 years
+            of experience in building and maintaining modern web applications. I
+            graduated from Nha Trang University with a degree in Software
+            Technology and have been deeply involved in both UI/UX development
+            and backend integration ever since.
           </p>
+
           <div className="h-4" />
           <p>
-            My name is Mang Bao. I'm 23 years old. I graduated from Nha Trang
-            University with a degree in Software Technology.
+            Throughout my career, I’ve contributed to various projects at
+            companies like Gravity Global, TMA Solutions, and LTV Software,
+            where I worked on frontend development, API integration, performance
+            optimization, and bug fixing. I’ve also actively collaborated with
+            teams to address user feedback and deliver projects efficiently.
           </p>
+
           <div className="h-4" />
           <p>
-            I used to work as a Front-end Developer at 9thWonder Viet Nam with 4
-            months of experience developing UI/UX of different websites, fixing
-            bugs in the user interface and bugs in the Back-end. Here I learned
-            a lot of Front End skills and gradually approached the Back-end.
-            During my time working here, my team and me have successfully
-            completed many website projects, handed them over to customers ahead
-            of schedule, and received many compliments from customers.
-          </p>
-          <div className="h-4" />
-          <p>
-            After that, I continued my journey in a new working environment at
-            TMA Solution Binh Dinh from July 2022 to the present. During more
-            than 1 year of working, I participated in a company's web
-            application project and learned many new skills such as ReactJS,
-            Python,... Every day I fix errors in the interface, fix errors in
-            the Back End, and code new functions. Together with my team, I
-            completed many versions of the web application and received many
-            good reviews from customers.
-          </p>
-          <div className="h-4" />
-          <p>
-            My goal for the next 3 years is to be a Senior Developer. I'm now
-            ready for more challenges and this position really excites me.
+            Currently, I’m continuing to sharpen my skills in both frontend and
+            backend development, while also exploring DevOps. My long-term goal
+            is to become a skilled Fullstack Developer who can take ownership of
+            end-to-end product development and bring lasting value to the team
+            and company.
           </p>
         </div>
         <div className="about-content-img w-full self-center">
