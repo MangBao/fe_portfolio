@@ -4,36 +4,53 @@ const config: Config = {
   darkMode: "class",
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
+    container: {
+      center: true,
+      padding: {
+        DEFAULT: "1rem",
+        sm: "1.5rem",
+        md: "2rem",
+        lg: "2rem",
+        xl: "2.5rem",
+        "2xl": "3rem",
+      },
+      screens: {
+        sm: "640px",
+        md: "768px",
+        lg: "1024px",
+        xl: "1280px",
+        "2xl": "1536px",
+        "3xl": "1728px",
+      },
+    },
     extend: {
-      extend: {
-        colors: {
-          white: "#f9f9f9",
-          primary_01: "#36383f",
-          primary_02: "#05edfd",
-          primary_03: "#20232f",
-          primary_04: "#a83279",
-          primary_05: "#67788c",
-          primary_06: "#394b60",
-          secondary: "#ec4899",
-          avatarSize: "236px",
-        },
-        fontFamily: {
-          sans: ["Roboto", "sans-serif"],
-        },
-        padding: {
-          section: "calc(10vw - 1rem)",
-        },
-        margin: {
-          section: "6rem",
-          "section-lg": "10rem",
-        },
-        fontSize: {
-          "title-sm": "2rem",
-          "title-lg": "4.5rem",
-        },
-        letterSpacing: {
-          title: "-0.05em",
-        },
+      colors: {
+        white: "var(--white)",
+        primary_01: "var(--primary_01)",
+        primary_02: "var(--primary_02)",
+        primary_03: "var(--primary_03)",
+        primary_04: "var(--primary_04)",
+        primary_05: "var(--primary_05)",
+        primary_06: "var(--primary_06)",
+        secondary: "var(--secondary)",
+        avatarSize: "236px",
+      },
+      fontFamily: {
+        sans: ["Roboto", "sans-serif"],
+      },
+      padding: {
+        section: "calc(10vw - 1rem)",
+      },
+      margin: {
+        section: "6rem",
+        "section-lg": "10rem",
+      },
+      fontSize: {
+        "title-sm": "2rem",
+        "title-lg": "4.5rem",
+      },
+      letterSpacing: {
+        title: "-0.05em",
       },
     },
   },

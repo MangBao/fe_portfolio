@@ -30,17 +30,18 @@ const Hero: React.FC = () => {
   const options: ISourceOptions = useMemo(
     () => ({
       autoPlay: true,
-      fpsLimit: 120,
+
       fullScreen: {
         enable: false,
         zIndex: 0,
       },
+
+      detectRetina: true,
+      fpsLimit: 120,
+
       interactivity: {
+        // detectsOn: ".content-hero",
         events: {
-          onClick: {
-            enable: true,
-            mode: "push",
-          },
           onHover: {
             enable: true,
             mode: "bubble",
@@ -50,7 +51,13 @@ const Hero: React.FC = () => {
               smooth: 20,
             },
           },
+
+          resize: {
+            delay: 0.5,
+            enable: true,
+          },
         },
+
         modes: {
           bounce: {
             distance: 100,
@@ -58,7 +65,7 @@ const Hero: React.FC = () => {
           bubble: {
             distance: 100,
             duration: 0.4,
-            size: 40,
+            size: 100,
             color: {
               value: "#05edfd",
             },
@@ -74,6 +81,7 @@ const Hero: React.FC = () => {
           },
         },
       },
+
       particles: {
         collisions: {
           enable: true,
@@ -82,32 +90,50 @@ const Hero: React.FC = () => {
         color: {
           value: "#fff",
         },
-        links: {
-          color: "#ffffff",
-          distance: 150,
-          enable: true,
-          opacity: 0.5,
-          width: 1,
-        },
         move: {
+          angle: {
+            offset: 0,
+            value: 90,
+          },
+          center: {
+            x: 50,
+            y: 50,
+            mode: "percent",
+            radius: 0,
+          },
           direction: MoveDirection.none,
+          drift: 0,
           enable: true,
+          random: false,
+          size: false,
+          speed: 0.8,
           outModes: {
             default: OutMode.out,
           },
-          random: false,
-          speed: 6,
-          straight: false,
         },
         number: {
-          density: {
-            enable: true,
-          },
-          value: 80,
+          //   limit: 0,
+          value: 30,
         },
+
         opacity: {
-          value: 0.5,
+          random: {
+            enable: true,
+            minimumValue: 0.4,
+            maxValue: 0.6,
+          },
+          value: 0.6,
+          animation: {
+            count: 0,
+            enable: true,
+            speed: 0.2,
+            decay: 0,
+            sync: true,
+            destroy: "none",
+            startValue: "random",
+          },
         },
+
         shape: {
           type: "character",
           options: {
@@ -129,11 +155,31 @@ const Hero: React.FC = () => {
             ],
           },
         },
+
         size: {
           value: { min: 12, max: 20 },
+          animation: {
+            count: 0,
+            enable: true,
+            speed: 0.2,
+            decay: 0,
+            sync: true,
+            destroy: "none",
+            startValue: "random",
+          },
+        },
+
+        links: {
+          color: "#ffffff",
+          distance: 150,
+          enable: true,
+          opacity: 0.5,
+          width: 1,
         },
       },
-      detectRetina: true,
+      pauseOnBlur: true,
+      pauseOnOutsideViewport: true,
+      smooth: true,
     }),
     []
   );
@@ -153,40 +199,37 @@ const Hero: React.FC = () => {
       )}
       {/* Nội dung chính */}
       <div className="absolute inset-0 w-full h-full z-[5] pt-[calc(5vh-1rem)]">
-        <div className="flex flex-col-reverse md:flex-row items-center justify-center">
+        <div className="flex flex-col-reverse xl:flex-row items-center justify-center container mx-auto lg:gap-10 gap-6">
           {/* Text và social media */}
-          <div className="text-left px-5 mt-[calc(6vh-1rem)] md:min-w-[900px]">
+          <div className="text-left mt-[calc(6vh-1rem)] lg:min-w-[780px] sm:min-w-[540px] min-w-full">
             <div>
-              <h3 className="text-[1.3rem] md:text-[3.2rem] font-bold">
+              <h3 className="text-[1.5rem] xl:text-[3rem] font-bold">
                 Hello It's Me
               </h3>
-              <h1 className="text-[2.2rem] md:text-[5.6rem] font-bold leading-tight">
+              <h1 className="text-[2rem] xl:text-[5rem] font-bold leading-tight">
                 Mang Bao
               </h1>
-              <h3 className="text-[1.3rem] md:text-[3.2rem] font-bold mb-4">
+              <h3 className="text-[1.5rem] xl:text-[3rem] font-bold mb-4">
                 And I'm a{" "}
                 <TypeAnimation
                   sequence={[
                     "Frontend Developer 👨‍💻",
                     2000,
-                    "UI/UX Enthusiast 🎨",
-                    2000,
-                    "React & Vue.js Lover 💡",
+                    "Let't get in touch💡",
                     2000,
                   ]}
-                  wrapper="span"
                   speed={50}
                   repeat={Infinity}
-                  className="text-blue-600"
+                  className="text-primary_02"
                 />
               </h3>
             </div>
-            <div className="flex justify-center gap-2 my-3">
+            <div className="flex gap-2 my-3">
               <a
                 href="https://github.com/MangBao"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center w-8 h-8 border-2 border-blue-600 rounded-full text-blue-600 hover:bg-blue-600 hover:text-white hover:shadow-[0_0_0.75rem_#2563eb] transition-all duration-500"
+                className="flex items-center justify-center w-8 h-8 border-2 border-primary_02 rounded-full text-primary_02 hover:bg-primary_02 hover:text-white hover:shadow-[0_0_0.75rem_#2563eb] transition-all duration-500"
               >
                 <FaGithub className="text-lg" />
               </a>
@@ -194,13 +237,13 @@ const Hero: React.FC = () => {
                 href="https://linkedin.com/in/yourusername"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center w-8 h-8 border-2 border-blue-600 rounded-full text-blue-600 hover:bg-blue-600 hover:text-white hover:shadow-[0_0_0.75rem_#2563eb] transition-all duration-500"
+                className="flex items-center justify-center w-8 h-8 border-2 border-primary_02 rounded-full text-primary_02 hover:bg-primary_02 hover:text-white hover:shadow-[0_0_0.75rem_#2563eb] transition-all duration-500"
               >
                 <FaLinkedin className="text-lg" />
               </a>
               <a
                 href="mailto:mangbao1301@gmail.com"
-                className="flex items-center justify-center w-8 h-8 border-2 border-blue-600 rounded-full text-blue-600 hover:bg-blue-600 hover:text-white hover:shadow-[0_0_0.75rem_#2563eb] transition-all duration-500"
+                className="flex items-center justify-center w-8 h-8 border-2 border-primary_02 rounded-full text-primary_02 hover:bg-primary_02 hover:text-white hover:shadow-[0_0_0.75rem_#2563eb] transition-all duration-500"
               >
                 <FaEnvelope className="text-lg" />
               </a>
@@ -209,7 +252,7 @@ const Hero: React.FC = () => {
               <a
                 href="/cv.pdf"
                 download
-                className="inline-block px-4 py-2 bg-blue-600 text-white rounded-full shadow-[0_0_0.5rem_#2563eb] hover:bg-blue-700 transition-all font-semibold tracking-wide mt-1"
+                className="inline-block px-4 py-2 bg-primary_02 text-primary_01 rounded-full shadow-[0_0_0.5rem_#2563eb] transition-all font-semibold tracking-wide mt-1"
               >
                 Download CV
               </a>
@@ -218,7 +261,7 @@ const Hero: React.FC = () => {
           {/* Avatar với SVG blob */}
           <div className="self-center">
             <svg
-              className="w-[200px] h-[187px]"
+              className="xl:w-64 w-48 fill-primary_02"
               viewBox="0 0 200 187"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -234,10 +277,10 @@ const Hero: React.FC = () => {
         </div>
       </div>
       {/* Scroller */}
-      <div className="absolute bottom-5 left-1/2 -translate-x-1/2 z-[4]">
+      <div className="absolute xl:bottom-40 bottom-28 left-1/2 -translate-x-1/2 z-50">
         <a href="#about">
-          <div className="w-10 h-20 border-4 border-blue-600 rounded-[1.6rem] relative">
-            <div className="absolute left-1/4 p-2 bg-blue-600 rounded-full mt-2 mb-2 animate-[swingParent_2s_ease-in-out_infinite_alternate]"></div>
+          <div className="w-10 h-20 border-4 border-primary_02 rounded-[1.6rem] relative">
+            <div className="absolute left-1/4 p-2 bg-primary_02 rounded-full mt-2 mb-2 animate-[swingParent_2s_ease-in-out_infinite_alternate]"></div>
           </div>
         </a>
       </div>
