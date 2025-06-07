@@ -27,7 +27,7 @@ const Skills: React.FC = () => {
               <li key={skill.id} className="skill-card">
                 <div className="wrap-skill-card">
                   <img
-                    src={skill.icon}
+                    src={`https://res.cloudinary.com/dhe0w2tsg/image/upload/${skill.icon}`}
                     alt={skill.title}
                     className="h-[50px] w-[50px] object-contain p-1"
                   />
@@ -47,7 +47,7 @@ const Skills: React.FC = () => {
               <li key={`${skill.id}-dup`} className="skill-card">
                 <div className="wrap-skill-card">
                   <img
-                    src={skill.icon}
+                    src={`https://res.cloudinary.com/dhe0w2tsg/image/upload/${skill.icon}`}
                     alt={skill.title}
                     className="h-[50px] w-[50px] object-contain p-1"
                   />
@@ -73,7 +73,7 @@ const Skills: React.FC = () => {
               <li key={skill.id} className="skill-card">
                 <div className="wrap-skill-card">
                   <img
-                    src={skill.icon}
+                    src={`https://res.cloudinary.com/dhe0w2tsg/image/upload/${skill.icon}`}
                     alt={skill.title}
                     className="h-[50px] w-[50px] object-contain p-1"
                   />
@@ -92,7 +92,7 @@ const Skills: React.FC = () => {
               <li key={`${skill.id}-dup`} className="skill-card">
                 <div className="wrap-skill-card">
                   <img
-                    src={skill.icon}
+                    src={`https://res.cloudinary.com/dhe0w2tsg/image/upload/${skill.icon}`}
                     alt={skill.title}
                     className="h-[50px] w-[50px] object-contain p-1"
                   />
