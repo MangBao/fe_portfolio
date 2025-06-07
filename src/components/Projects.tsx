@@ -121,7 +121,7 @@ const ProjectShowcase: React.FC = () => {
             {projects.map((project, index) => (
               <SwiperSlide key={index}>
                 <img
-                  src={project.image[0]}
+                  src={project.image}
                   alt={project.title}
                   className="w-full h-[380px] object-cover rounded-lg"
                 />
