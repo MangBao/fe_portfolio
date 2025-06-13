@@ -1,57 +1,70 @@
 "use client";
 import React from "react";
-import spareAvt from "../assets/square-avt.png";
+// import spareAvt from "../assets/square-avt.png";
+import { useAbout } from "../hooks/useAbout";
+import { titleAboutMe } from "../utils/constant";
 
 const About: React.FC = () => {
+  const { data, isLoading, isError } = useAbout();
+
+  if (isLoading) {
+    return <div className="text-white">Loading...</div>;
+  }
+
+  if (isError) {
+    return <div className="text-red-500">Failed to load about info.</div>;
+  }
+
+  const titleParts =
+    data?.title?.filter((value) => value === titleAboutMe)[0] || titleAboutMe;
+  const contentParagraphs = data?.content || [];
+
   return (
     <section>
       <div className="title">
-        <span className="text-primary-02 uppercase">Introduction</span>
+        <span className="text-primary-02 uppercase">
+          {data?.title?.[1] ?? "Introduction"}
+        </span>
         <h2 className="text-title-sm md:text-title-lg tracking-title flex gap-2">
-          {["A", "B", "O", "U", "T", "\u00A0", "M", "E"].map((char, index) => (
-            <span key={index} className="bounce">
-              {char}
-            </span>
-          ))}
+          {[...titleParts].map((char, index) => {
+            const displayChar = char === " " ? "\u00A0" : char;
+            return (
+              <span key={index} className="bounce">
+                {displayChar}
+              </span>
+            );
+          })}
         </h2>
       </div>
+
       <div className="about-content flex flex-col-reverse md:flex-row">
         <div className="about-content-text w-full self-center text-white">
-          <p className="content-text-title text-primary-02">
-            Hi, I’m Mang Bao — a passionate Frontend Developer with over 3 years
-            of experience in building and maintaining modern web applications. I
-            graduated from Nha Trang University with a degree in Software
-            Technology and have been deeply involved in both UI/UX development
-            and backend integration ever since.
-          </p>
-
-          <div className="h-4" />
-          <p>
-            Throughout my career, I’ve contributed to various projects at
-            companies like Gravity Global, TMA Solutions, and LTV Software,
-            where I worked on frontend development, API integration, performance
-            optimization, and bug fixing. I’ve also actively collaborated with
-            teams to address user feedback and deliver projects efficiently.
-          </p>
-
-          <div className="h-4" />
-          <p>
-            Currently, I’m continuing to sharpen my skills in both frontend and
-            backend development, while also exploring DevOps. My long-term goal
-            is to become a skilled Fullstack Developer who can take ownership of
-            end-to-end product development and bring lasting value to the team
-            and company.
-          </p>
+          {contentParagraphs.map((paragraph: string, index: number) => (
+            <React.Fragment key={index}>
+              <p
+                className={
+                  index === 0 ? "content-text-title text-primary-02" : ""
+                }
+              >
+                {paragraph.trim()}
+              </p>
+              <div className="h-4" />
+            </React.Fragment>
+          ))}
         </div>
+
         <div className="about-content-img w-full self-center">
           <div className="content-wrap-img h-[300px] w-[80%] md:w-[60%] lg:w-[50%] mx-auto my-8 lg:my-0 flex items-center justify-center">
             <div
               className="content-img about-blob-img drop-shadow-div w-full h-full"
-              style={{ backgroundImage: `url(${spareAvt})` }}
+              style={{
+                backgroundImage: `url(https://res.cloudinary.com/dhe0w2tsg/image/upload/${data?.image})`,
+              }}
             />
           </div>
         </div>
       </div>
+
       <style>
         {`
           .bounce {
@@ -63,7 +76,7 @@ const About: React.FC = () => {
           }
           .about-blob-img {
             animation: morph 3.6s linear infinite;
-            background: #05edfd; /* primary-02 */
+            background: #05edfd;
             background-size: cover;
             background-position: center;
             outline: 1px solid transparent;
