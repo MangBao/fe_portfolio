@@ -350,3 +350,5 @@ export const experiences = [
     ],
   },
 ];
+
+export const titleAboutMe = "About Me";

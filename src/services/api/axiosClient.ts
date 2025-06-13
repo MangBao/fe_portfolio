@@ -3,8 +3,7 @@ import { getAccessToken, refreshAccessToken } from "./authToken";
 import { showError } from "../../utils/notification";
 
 export const axiosInstance = axios.create({
-  baseURL:
-    import.meta.env.VITE_API_BASE_URL || process.env.NEXT_PUBLIC_API_BASE_URL,
+  baseURL: `${import.meta.env.VITE_API_BASE_URL}/api/v1`,
   timeout: 60000,
 });
 
