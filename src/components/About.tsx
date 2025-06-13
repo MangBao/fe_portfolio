@@ -1,18 +1,25 @@
+// src\components\About.tsx
 "use client";
 import React from "react";
 // import spareAvt from "../assets/square-avt.png";
 import { useAbout } from "../hooks/useAbout";
 import { titleAboutMe } from "../utils/constant";
+import Loading from "./Loading";
+import toast from "react-hot-toast";
 
 const About: React.FC = () => {
-  const { data, isLoading, isError } = useAbout();
+  const { data, isLoading, isError, error } = useAbout();
 
   if (isLoading) {
-    return <div className="text-white">Loading...</div>;
+    return <Loading />;
   }
 
   if (isError) {
-    return <div className="text-red-500">Failed to load about info.</div>;
+    console.log(error.message);
+
+    return toast.error(
+      "Tải dữ liệu giới thiệu thất bại. Vui lòng thử lại sau!"
+    );
   }
 
   const titleParts =
