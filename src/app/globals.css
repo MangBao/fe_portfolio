@@ -1,0 +1,177 @@
+/* ========================================
+   Google Fonts Import - MUST BE FIRST
+   ======================================== */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ========================================
+   CSS Variables - Color Palette
+   ======================================== */
+:root {
+  /* Base colors */
+  --color-light: #f9f9f9;
+  --color-dark: #20232f;
+
+  /* Primary palette */
+  --color-charcoal: #36383f;
+  --color-cyan: #05edfd;
+  --color-magenta: #a83279;
+  --color-slate: #67788c;
+  --color-steel: #394b60;
+
+  /* Secondary */
+  --color-pink: #ec4899;
+
+  /* Background & Foreground */
+  --background: var(--color-dark);
+  --foreground: var(--color-light);
+
+  /* Custom cursor colors */
+  --cursor-light: var(--color-cyan);
+  --cursor-dark: var(--color-dark);
+
+  /* Font family */
+  --font-sans: "Space Grotesk", "Space Grotesk Placeholder", sans-serif;
+}
+
+/* ========================================
+   Custom Cursor Styles
+   ======================================== */
+@layer base {
+
+  /* Hide default cursor globally */
+  * {
+    cursor: none !important;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+}
+
+/* ========================================
+   Container Wrapper Styles
+   ======================================== */
+@layer components {
+  .page-container {
+    @apply min-h-screen w-full bg-dark text-light;
+    position: relative;
+  }
+
+  .content-wrapper {
+    @apply max-w-7xl mx-auto px-6 md:px-12 lg:px-20;
+  }
+
+  /* Section styles */
+  .section {
+    @apply min-h-screen flex flex-col justify-center py-20;
+  }
+
+  /* Gradient glow effect like in reference */
+  .glow-effect {
+    position: relative;
+  }
+
+  .glow-effect::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle,
+        rgba(5, 237, 253, 0.3) 0%,
+        rgba(5, 237, 253, 0.1) 40%,
+        transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+  }
+}
+
+/* ========================================
+   Custom Cursor Component Styles
+   ======================================== */
+.custom-cursor {
+  position: fixed;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease-out, background-color 0.3s ease;
+  mix-blend-mode: difference;
+}
+
+/* Default cursor (for dark backgrounds) */
+.custom-cursor--light {
+  background-color: var(--cursor-light);
+}
+
+/* Cursor for light backgrounds */
+.custom-cursor--dark {
+  background-color: var(--cursor-dark);
+}
+
+/* Cursor hover state */
+.custom-cursor--hover {
+  transform: translate(-50%, -50%) scale(2);
+}
+
+/* ========================================
+   Typography
+   ======================================== */
+@layer base {
+  h1 {
+    @apply text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight;
+  }
+
+  h2 {
+    @apply text-3xl md:text-4xl lg:text-5xl font-bold;
+  }
+
+  h3 {
+    @apply text-xl md:text-2xl font-semibold;
+  }
+
+  p {
+    @apply text-base md:text-lg leading-relaxed;
+  }
+
+  a {
+    @apply transition-colors duration-200;
+  }
+}
+
+/* ========================================
+   Utility Classes
+   ======================================== */
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(90deg, var(--color-cyan), var(--color-magenta));
+  }
+
+  .text-cyan {
+    color: var(--color-cyan);
+  }
+
+  .bg-gradient-glow {
+    background: radial-gradient(ellipse at center,
+        rgba(5, 237, 253, 0.15) 0%,
+        transparent 70%);
+  }
+}
