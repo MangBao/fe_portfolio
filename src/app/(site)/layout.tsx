@@ -21,13 +21,8 @@ export default function SiteLayout({
     <html lang="en">
       <body className="bg-dark text-light antialiased">
         <CustomCursor />
-        <div className="page-container">
-          <Navbar />
-          <main className="pt-16">
-            <Providers>{children}</Providers>
-          </main>
-          <Footer />
-        </div>
+        <Navbar />
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

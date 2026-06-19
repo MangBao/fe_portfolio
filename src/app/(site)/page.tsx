@@ -1,4 +1,9 @@
 import { Metadata } from "next";
+import Image from "next/image";
+import HeroHeader from "@/components/sections/HeroHeader";
+import HeroMiddle from "@/components/sections/HeroMiddle";
+import HeroFooter from "@/components/sections/HeroFooter";
+import avatarImg from "@/assets/images/avt-ai-removebg-preview.png";
 
 export const metadata: Metadata = {
   title: "Home",
@@ -7,39 +12,62 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   return (
-    <div className="section">
-      <div className="content-wrapper">
-        {/* Hero Section */}
-        <div className="relative">
-          {/* Greeting */}
-          <p className="text-lg text-light mb-4">
-            Hey, <span className="inline-block">👋</span> I&apos;m a Full Stack
-            Developer
-          </p>
-
-          {/* Name - Large Typography */}
-          <h1 className="text-cyan font-bold uppercase tracking-tight">
-            MBAO DEV
-          </h1>
-
-          {/* Scroll Indicator */}
-          <div className="fixed right-8 bottom-1/4 flex flex-col items-center gap-4">
-            <div className="w-px h-16 bg-cyan"></div>
-            <span className="text-xs text-cyan uppercase tracking-widest rotate-90 origin-center translate-y-8">
-              Scroll
-            </span>
-          </div>
-
-          {/* Description */}
-          <div className="mt-16 max-w-md ml-auto text-right">
-            <p className="text-sm text-slate leading-relaxed">
-              I craft fast, scalable, and user-friendly web applications with
-              modern JavaScript frameworks — combining React on the frontend
-              with robust server-side solutions using Node.js.
-            </p>
-          </div>
-        </div>
+    <>
+      {/* ========================================
+         Fixed Background — stays in place on scroll
+         ======================================== */}
+      <div className="background-layer flex items-end justify-center">
+        {/* Glow */}
+        <div
+          className="absolute bottom-[5%] left-1/2 -translate-x-1/2"
+          style={{
+            width: 500,
+            height: 500,
+            background:
+              "radial-gradient(circle, rgba(5,237,253,0.25) 0%, rgba(5,237,253,0.08) 40%, transparent 70%)",
+            borderRadius: "50%",
+          }}
+        />
+        {/* Avatar */}
+        <Image
+          src={avatarImg}
+          alt="MBAO DEV"
+          width={420}
+          height={420}
+          className="object-cover"
+          priority
+        />
       </div>
-    </div>
+
+      {/* ========================================
+         Section 1: Hero — 100dvh, content scrolls over BG
+         ======================================== */}
+      <section id="hero" className="hero-container">
+        <div className="content-layer container">
+          <HeroHeader />
+          <HeroMiddle />
+          <HeroFooter />
+        </div>
+      </section>
+
+      {/* ========================================
+         Section 2: About — Test section for scroll
+         ======================================== */}
+      <section
+        id="about"
+        className="content-section"
+        style={{ backgroundColor: "#181a24" }}
+      >
+        <div className="container py-20">
+          <h2 className="text-3xl font-bold text-cyan mb-6">About Me</h2>
+          <p className="text-slate max-w-2xl leading-relaxed">
+            This is a test section to verify scrolling works correctly. The
+            background stays fixed in place while this content scrolls over it,
+            creating a modern parallax effect. Replace this with your actual
+            About content.
+          </p>
+        </div>
+      </section>
+    </>
   );
 }

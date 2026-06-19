@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 export default function ExperiencePage() {
   return (
     <div className="section">
-      <div className="content-wrapper">
+      <div className="container">
         <h1 className="text-cyan">Experience</h1>
         <p className="mt-4 text-slate">Experience Page</p>
       </div>

@@ -28,6 +28,8 @@ export default function ExpandingMenu() {
   const rightArrowRef = useRef<SVGSVGElement>(null);
   const lineRef = useRef<HTMLDivElement>(null);
   const iconContainerRef = useRef<HTMLDivElement>(null);
+  const tlRef = useRef<gsap.core.Timeline | null>(null);
+  const isFirstRender = useRef(true);
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -45,6 +47,12 @@ export default function ExpandingMenu() {
 
   // Animation when isOpen changes
   useEffect(() => {
+    // Skip the closing animation on initial mount
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+
     const container = containerRef.current;
     const content = contentRef.current;
     const leftArrow = leftArrowRef.current;
@@ -54,25 +62,25 @@ export default function ExpandingMenu() {
 
     if (!container || !content) return;
 
-    // Kill any existing animations
-    gsap.killTweensOf([
-      container,
-      content,
-      leftArrow,
-      rightArrow,
-      line,
-      iconContainer,
-      ".menu-link",
-    ]);
+    // Kill the previous timeline completely (including onComplete callbacks)
+    if (tlRef.current) {
+      tlRef.current.kill();
+      tlRef.current = null;
+    }
 
     if (isOpen) {
       // === OPENING ANIMATION ===
-      // First, make content visible to measure
+      // Reset all properties to their "closed" state before animating open
       gsap.set(content, { visibility: "visible", opacity: 0 });
+      gsap.set(".menu-link", { y: 12, opacity: 0 });
+      gsap.set(line, { height: 0, opacity: 0 });
+      gsap.set(leftArrow, { marginRight: -3 });
+      gsap.set(rightArrow, { marginLeft: -3 });
       const contentHeight = content.scrollHeight;
       const totalHeight = BUTTON_HEIGHT + contentHeight;
 
       const tl = gsap.timeline();
+      tlRef.current = tl;
 
       tl
         // Container expand
@@ -107,6 +115,25 @@ export default function ExpandingMenu() {
           },
           0.1,
         )
+        // Spread arrows apart (remove tight squeeze)
+        .to(
+          leftArrow,
+          {
+            marginRight: 0,
+            duration: 0.3,
+            ease: "power2.out",
+          },
+          0.1,
+        )
+        .to(
+          rightArrow,
+          {
+            marginLeft: 0,
+            duration: 0.3,
+            ease: "power2.out",
+          },
+          0.1,
+        )
         // Content fade in
         .to(
           content,
@@ -134,9 +161,13 @@ export default function ExpandingMenu() {
       // === CLOSING ANIMATION ===
       const tl = gsap.timeline({
         onComplete: () => {
-          gsap.set(content, { visibility: "hidden" });
+          // Only hide if we're still the active timeline (not killed)
+          if (tlRef.current === tl) {
+            gsap.set(content, { visibility: "hidden" });
+          }
         },
       });
+      tlRef.current = tl;
 
       tl
         // Menu links fade out quickly
@@ -192,8 +223,35 @@ export default function ExpandingMenu() {
             ease: "power2.in",
           },
           0.05,
+        )
+        // Tighten arrows together
+        .to(
+          leftArrow,
+          {
+            marginRight: -3,
+            duration: 0.2,
+            ease: "power2.in",
+          },
+          0.05,
+        )
+        .to(
+          rightArrow,
+          {
+            marginLeft: -3,
+            duration: 0.2,
+            ease: "power2.in",
+          },
+          0.05,
         );
     }
+
+    // Cleanup: kill timeline when component unmounts
+    return () => {
+      if (tlRef.current) {
+        tlRef.current.kill();
+        tlRef.current = null;
+      }
+    };
   }, [isOpen]);
 
   // Set initial states
@@ -244,6 +302,7 @@ export default function ExpandingMenu() {
             <svg
               ref={leftArrowRef}
               className="w-3.5 h-3.5 text-dark"
+              style={{ marginRight: -2 }}
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -273,6 +332,7 @@ export default function ExpandingMenu() {
             <svg
               ref={rightArrowRef}
               className="w-3.5 h-3.5 text-dark"
+              style={{ marginLeft: -2 }}
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
