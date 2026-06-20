@@ -3,6 +3,7 @@ import Image from "next/image";
 import HeroHeader from "@/components/sections/HeroHeader";
 import HeroMiddle from "@/components/sections/HeroMiddle";
 import HeroFooter from "@/components/sections/HeroFooter";
+import AnimatedSectionHeader from "@/components/ui/AnimatedSectionHeader";
 import avatarImg from "@/assets/images/avt-ai-removebg-preview.png";
 
 export const metadata: Metadata = {
@@ -59,13 +60,10 @@ export default function HomePage() {
         style={{ backgroundColor: "#181a24" }}
       >
         <div className="container py-20">
-          <h2 className="text-3xl font-bold text-cyan mb-6">About Me</h2>
-          <p className="text-slate max-w-2xl leading-relaxed">
-            This is a test section to verify scrolling works correctly. The
-            background stays fixed in place while this content scrolls over it,
-            creating a modern parallax effect. Replace this with your actual
-            About content.
-          </p>
+          <AnimatedSectionHeader
+            subtitle="// About Me"
+            title="This is a test section to verify scrolling works correctly. The background stays fixed in place while this content scrolls over it, creating a modern parallax effect. Replace this with your actual About content."
+          />
         </div>
       </section>
     </>

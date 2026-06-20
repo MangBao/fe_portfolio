@@ -71,7 +71,7 @@ export default function ExpandingMenu() {
     if (isOpen) {
       // === OPENING ANIMATION ===
       // Reset all properties to their "closed" state before animating open
-      gsap.set(content, { visibility: "visible", opacity: 0 });
+      gsap.set(content, { visibility: "visible", opacity: 0, pointerEvents: "auto" });
       gsap.set(".menu-link", { y: 12, opacity: 0 });
       gsap.set(line, { height: 0, opacity: 0 });
       gsap.set(leftArrow, { marginRight: -3 });
@@ -163,7 +163,11 @@ export default function ExpandingMenu() {
         onComplete: () => {
           // Only hide if we're still the active timeline (not killed)
           if (tlRef.current === tl) {
-            gsap.set(content, { visibility: "hidden" });
+            gsap.set(content, {
+              visibility: "hidden",
+              opacity: 0,
+              pointerEvents: "none",
+            });
           }
         },
       });
@@ -267,7 +271,12 @@ export default function ExpandingMenu() {
       });
     }
     if (content) {
-      gsap.set(content, { visibility: "hidden", opacity: 0 });
+      gsap.set(content, {
+        visibility: "hidden",
+        opacity: 0,
+        pointerEvents: "none",
+      });
+      gsap.set(".menu-link", { y: 12, opacity: 0 });
     }
     if (line) {
       gsap.set(line, { height: 0, opacity: 0 });
@@ -275,13 +284,15 @@ export default function ExpandingMenu() {
   }, []);
 
   return (
-    <div ref={menuRef} className="absolute top-0 right-0 z-50">
+    <div ref={menuRef} className="absolute top-2.5 right-0 z-50">
       {/* Single Container - expands as one unit */}
       <div
         ref={containerRef}
         className="bg-light overflow-hidden"
         style={{
           width: MENU_WIDTH,
+          height: BUTTON_HEIGHT,
+          borderRadius: BORDER_RADIUS_CLOSED,
           boxShadow: "0 10px 40px -10px rgba(0, 0, 0, 0.3)",
         }}
       >
@@ -302,7 +313,7 @@ export default function ExpandingMenu() {
             <svg
               ref={leftArrowRef}
               className="w-3.5 h-3.5 text-dark"
-              style={{ marginRight: -2 }}
+              style={{ marginRight: -3 }}
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -319,7 +330,7 @@ export default function ExpandingMenu() {
             {/* Height varies, Width is fixed. Rotates with container. */}
             <div
               ref={lineRef}
-              className="w-[1.5px] bg-dark rounded-full"
+              className="h-0 w-[1.5px] opacity-0 bg-dark rounded-full"
               style={{
                 backgroundImage:
                   "linear-gradient(to bottom, currentColor 50%, transparent 50%)",
@@ -332,7 +343,7 @@ export default function ExpandingMenu() {
             <svg
               ref={rightArrowRef}
               className="w-3.5 h-3.5 text-dark"
-              style={{ marginLeft: -2 }}
+              style={{ marginLeft: -3 }}
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -348,7 +359,11 @@ export default function ExpandingMenu() {
         </button>
 
         {/* Menu Content */}
-        <div ref={contentRef} className="flex flex-col gap-1 px-5 pb-4">
+        <div
+          ref={contentRef}
+          className="invisible flex flex-col gap-1 px-5 pb-4 opacity-0 pointer-events-none"
+          aria-hidden={!isOpen}
+        >
           {menuLinks.map((item, idx) => {
             const isActive = pathname === item.href;
             return (
@@ -356,7 +371,7 @@ export default function ExpandingMenu() {
                 key={idx}
                 href={item.href}
                 onClick={() => setIsOpen(false)}
-                className={`menu-link text-sm transition-colors py-2 hover:text-cyan ${
+                className={`menu-link opacity-0 text-sm transition-colors py-2 hover:text-cyan ${
                   isActive
                     ? "text-cyan font-semibold"
                     : "text-dark/70 font-normal"
