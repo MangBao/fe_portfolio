@@ -20,8 +20,10 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-[1000] pt-4 transition-all duration-[400ms] ease-in-out ${
-        scrolled ? "scrolled-nav" : "bg-transparent"
+      className={`fixed top-0 left-0 right-0 z-[1000] pt-4 transition-all duration-[400ms] ease-in-out transform-gpu [transform:translateZ(0)] [backface-visibility:hidden] isolate ring-0 ![transition-property:background-color,backdrop-filter,-webkit-backdrop-filter,box-shadow] ${
+        scrolled
+          ? "scrolled-nav !border-b-transparent [box-shadow:0_1px_0_0_rgba(255,255,255,0.05)]"
+          : "bg-transparent [box-shadow:0_1px_0_0_var(--background)]"
       }`}
     >
       <div className="container">
